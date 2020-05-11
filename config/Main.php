@@ -1,13 +1,12 @@
-  <?php    
-				 include_once(dirname(__FILE__).'/conf.cnf');
-                   
-                  class Main{ 
+<?php 
+namespace config;
+include_once(dirname(__FILE__).'/conf.cnf');
+				use mysqli;
+        class Main{ 
 						public $_servidor=DB_HOST;
 						protected $_pass=DB_PASS;
 						protected $_bd=DB_NAME;
-						public  $_user=DB_USER;             
-				
-				 protected $_db; 
+						public  $_user=DB_USER;    
 			
 				public function __construct() 
 				{
@@ -21,42 +20,35 @@
 				$this->_db->set_charset('utf-8'); 
 				} 
 				
-				public  function abredatabase($sql){
+				public   function dbAbreDatabase($sql){
 					$resultado=$this->_db->query($sql)or die($this->_db->error); ; 	
 					return $resultado;	
 				}
-				public function dregistro($resultado) 
+				public   function dbTrareGistro($resultado) 
 				{ 
 				  return  mysqli_fetch_array($resultado, MYSQLI_ASSOC);
 				  $this->_db->set_charset('utf-8');
 			   }
-				public   function numfield($res){
+				public   function dbnumField($res){
 					return mysqli_num_fields($res);	
 					}
-				public  function numerodefilas($res){
+				public   function numeroDeCampos($res){
 				return mysqli_num_rows($res);	
 					}
-				public function dnombrecampo($res){
+				public   function dbNombreCampo($res){
 				 return	mysqli_fetch_field($res);	
 				}
 				
-				public function escpcart($var){
+				public   function escpCart($var){
 					return mysqli_real_escape_string($var);
 					
 					}
-				public  function  __destructor(){
+				public  function  __destruct(){
 				mysqli_close($this->_db);  
 				
-				//return; 
+				
 					}
-			
-		public  function mostrartbl($data){
-	     
-			$ejecutar="SHOW FULL TABLES FROM"." ".$this->_bd.$data."";		
-			
-			return $ejecutar;
-			
-			}
+		
 
 			
 	}
