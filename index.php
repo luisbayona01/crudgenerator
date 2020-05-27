@@ -19,9 +19,12 @@ require dirname(__FILE__)."/installer/installer.php";
   }*/
 
 $Crudgenerador = new Crudgenerador();
+//echo $_SERVER["DOCUMENT_ROOT"];
+$table ="usuario";
+$Crudgenerador->lecturatabla($table);
+ //print_r($Crudgenerador->traertablas());
 
-//$table ="usuario";
-//$Crudgenerador->lecturatabla($table);
- print_r($Crudgenerador->traertablas());
+
+
 
 

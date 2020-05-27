@@ -1,6 +1,6 @@
 <?php 
-namespace config;
-include_once(dirname(__FILE__).'/conf.cnf');
+        namespace config;
+        include_once(dirname(__FILE__).'/conf.cnf');
 				use mysqli;
         class Main{ 
 						public $_servidor=DB_HOST;
@@ -20,8 +20,16 @@ include_once(dirname(__FILE__).'/conf.cnf');
 				$this->_db->set_charset('utf-8'); 
 				} 
 				
+				 public   function TrasactcomitStart(){
+				  $this->_db->autocommit(FALSE);
+                  }
+                public  function Commit(){
+
+                	$this->_db->commit();
+                }
+                    
 				public   function dbAbreDatabase($sql){
-					$resultado=$this->_db->query($sql)or die($this->_db->error); ; 	
+				$resultado=$this->_db->query($sql)or die($this->_db->error); ; 	
 					return $resultado;	
 				}
 				public   function dbTrareGistro($resultado) 

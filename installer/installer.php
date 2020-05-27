@@ -42,6 +42,7 @@ class Crudgenerador
         }
         
         $this->modelos($table, $camposinsert, $primary);
+        $this->Controladores($table, $camposinsert, $primary);
         $this->listarvista($table, $camposupdate);
         $this->updatevista($table, $camposupdate);
     }
@@ -174,12 +175,18 @@ class Crudgenerador
          use config\Main;    
          class Modelo" . $tabla . "{  
          ";
-        
+            $phpM .= "protected " . $simbolo . $primary . ";\n";
+         foreach ($camposM as $values) {
+            
+            
+            $phpM .= "public " . $simbolo . $values . ";\n";
+
+            
+            }
+
+
         foreach ($camposM as $value) {
-            
-            
-            $phpM .= "public " . $simbolo . $value . ";\n";
-            $campo = ucwords($value);
+         $campo = ucwords($value);
             
             $phpM .= "public function  set" . $campo . "(" . $simbolo . $value . "){
           " . $simbolo . "this->" . $value . "=" . $simbolo . $value . ";
@@ -200,7 +207,7 @@ class Crudgenerador
         $sqlUpdate    = $simbolo . 'sql="update set '.$camposUpdate.'where ' . $primary . '=' . $primaryKey . '"';
         $sqldelete    = $simbolo . 'sql=" delete  from '.$table.'where ' . $primary . '=' . $primaryKey . '"';
         $sqlbuscar    = $simbolo . 'sql=" select * from ' . $table . ' where ' . $primary . '=' . $primaryKey . '"';
-        $phpM .= "protected " . $simbolo . $primary . "; 
+        $phpM .= "
          public function set" . $campoP . "(" . $simbolo . $primary . "){
          " . $simbolo . "this->" . $primary . "= " . $simbolo . $primary . ";
         }  
@@ -209,9 +216,9 @@ class Crudgenerador
             " . $sqlInsert . "; 
             " . $simbolo . "Query= " . $simbolo . "Main->dbAbreDatabase(" . $simbolo . "sql); 
              if(" . $simbolo . "Query){
-               return 1;    
+               return true;    
              } else{
-               return 0;
+               return false;
              }
            }
 
@@ -289,7 +296,20 @@ class Crudgenerador
                 $phpController.=$simbolo.$post."=".$simbolo.$post."["."'".$post."'"."];"; 
                 $phpController.=$simbolo."Modelo".$tabla."->set".$campo."(".$simbolo.$post.");";  
              }
-           $phpController.=$simbolo."Modelo".$tabla."->add".$tabla ."();";
+
+           $phpController.=$simbolo."respuesta;";  
+           $phpController.="
+            
+           if(".$simbolo."Modelo".$tabla."->add".$tabla ."()== '1'){
+                  ".$simbolo."respuesta='operacion exitosa';
+                 }   
+
+           ".$simbolo."Response=array('respuesta'=>".$simbolo."respuesta);
+           ".$simbolo."json=json_encode(".$simbolo."Response);
+          return ".$simbolo."json;
+                 " 
+
+                 ;
 
           $phpController.="}";              
           $phpController.= "public  static  function delete".$tabla."(){  ".$modelo."";
@@ -298,11 +318,11 @@ class Crudgenerador
           $phpController.=" public  static function  mostrar".$tabla."(){  ".$modelo."";
           $phpController.=$simbolo."Modelo".$tabla."->Listar_".$tabla ."();";
           $phpController.="}";   
-          $phpController="public  static function  edit".$tabla."(){ ".$modelo.""; 
+          $phpController.="public  static function  edit".$tabla."(){ ".$modelo.""; 
                         
           $phpController.="}";   
 
-          $phpController= "public  static function  update".$tabla."(){  ".$modelo."";
+          $phpController.= "public  static function  update".$tabla."(){  ".$modelo."";
               foreach ($camposM as $post) {
                 $campo = ucwords($post);
                 $phpController.=$simbolo.$post."=".$simbolo.$post."["."'".$post."'"."];"; 
@@ -313,8 +333,10 @@ class Crudgenerador
 
           $phpController.="}";         
                       
-          $phpController.="}";    
-                                
+          $phpController.="}";
+
+           $directorioC = Rootpath . "/app/Controllers/" . $tabla .'Controller.php';    
+           $this->escribirdirectorio($directorioC, $phpController);                     
       }
     
 }
