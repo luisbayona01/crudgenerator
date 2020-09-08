@@ -9,8 +9,8 @@ app.controller("myCtrl", function($scope,$http) {
 
   $scope.Guardar=function(){
 
-var url="http://localhost/axitys/index.php/inventarios/insert";
-var  parametros=$(".registrarinventario").serialize();
+var url=" "; // url o ruta 
+var  parametros=$("").serialize();  // seraliza form 
 $http({
   method  : 'POST',
   url     : url,
@@ -19,7 +19,7 @@ $http({
  
    }).success(function(response){
            
-		  alert(response);
+		  //alert(response);
   
   $scope.listar();
 		  //$scope.supervisor=response;

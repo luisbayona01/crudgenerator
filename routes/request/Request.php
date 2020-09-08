@@ -5,10 +5,11 @@
      public   function __construct(){
      
       $data=explode("/",$_SERVER['REQUEST_URI']);
-       
-       if(count($data)>2){
-     
-       $urls= (empty($data[3])) ? '/' : $data[3]; 
+        print_r($data);
+        //echo count($data);
+       if(count($data)==3){
+      //echo "aqui";
+       $urls= (empty($data[2])) ? '/' : $data[2]; 
        $array= array($urls=>$urls);
        } else {
       $urls=parse_url(trim($_SERVER['REQUEST_URI'],'/'),PHP_URL_PATH)?:'/';

@@ -6,8 +6,10 @@
                           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
                           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+                          <script src="./public/js/angular.min.js"></script>
+                          <script src="./public/js/main.js"></script>
                         </head>
-                        <body ng-app="myApp"><div class="container">
+                        <body ng-app="myApp" ng-controller="myCtrl"><div class="container">
                            <h2>listarUsuario</h2>
                            <div class="table-responsive">
                             <table class="table"><thead><tr><th>id</th><th>nombre</th><th>edad</th><th>color</th></tr>

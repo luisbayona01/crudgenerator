@@ -10,15 +10,15 @@ require dirname(__FILE__)."/installer/installer.php";
   $request=new Request();
   $router= new Router($request);
   
-/*try {
+try {
   $router->loadRoutes('routes/routes.php')->match(); 
   $router->dispatch();  
   
   } catch (Exception $e) {
   	echo   $e->getMessage();
-  }*/
+  }
 
-$Crudgenerador = new Crudgenerador();
+/*$Crudgenerador = new Crudgenerador();
 //echo $_SERVER["DOCUMENT_ROOT"];
 $table ="usuario";
 $Crudgenerador->lecturatabla($table);

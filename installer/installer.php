@@ -93,8 +93,10 @@ class Crudgenerador
                           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
                           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+                          <script src="./public/js/angular.min.js"></script>
+                          <script src="./public/js/main.js"></script>
                         </head>
-                        <body ng-app="myApp">';
+                        <body ng-app="myApp" ng-controller="myCtrl">';
         $campos = explode(",", substr($camposupdate, 0, -1));
         
         $tableresponsiveini = '<div class="container">
@@ -173,7 +175,7 @@ class Crudgenerador
         $phpM = "<?php 
          namespace app\Models;
          use config\Main;    
-         class Modelo" . $tabla . "{  
+         class " . $tabla . "{  
          ";
             $phpM .= "protected " . $simbolo . $primary . ";\n";
          foreach ($camposM as $values) {
@@ -276,9 +278,9 @@ class Crudgenerador
         $simbolo          = '$';
         $tabla            = ucwords($table);
         $camposM          = explode(",", substr($camposinsert, 0, -1));
-        $namespaces='app\Models\Modelo'.$tabla;
+        $namespaces='app\Models\ '.$tabla;
         $eliminadoespacio= trim($namespaces);
-        $modelo=$simbolo."Modelo".$tabla."="."new Modelo".$tabla."();"; 
+        $modelo=$simbolo."Modelo".$tabla."="."new ".$tabla."();"; 
 
           $phpController="<?php 
                       namespace app\Controllers;
@@ -328,7 +330,7 @@ class Crudgenerador
                 $phpController.=$simbolo.$post."=".$simbolo.$post."["."'".$post."'"."];"; 
                 $phpController.=$simbolo."Modelo".$tabla."->set".$campo."(".$simbolo.$post.");";  
              }  
-             $phpController.=$simbolo."Modelo".$tabla."->set".$primary."($primary)";
+             $phpController.=$simbolo."Modelo".$tabla."->set".$primary."(".$simbolo.$primary.");";
              $phpController.=$simbolo."Modelo".$tabla."->update".$tabla ."();";   
 
           $phpController.="}";         
@@ -338,5 +340,8 @@ class Crudgenerador
            $directorioC = Rootpath . "/app/Controllers/" . $tabla .'Controller.php';    
            $this->escribirdirectorio($directorioC, $phpController);                     
       }
-    
+     
+
+ 
+
 }

@@ -1,7 +1,7 @@
 <?php 
          namespace app\Models;
          use config\Main;    
-         class ModeloUsuario{  
+         class Usuario{  
          protected $id;
 public $nombre;
 public $edad;
