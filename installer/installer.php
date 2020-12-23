@@ -17,7 +17,7 @@ class Crudgenerador
           
            
         }
-     return $tablas;
+      $tablas;
      } 
     
     public function lecturatabla($table)
